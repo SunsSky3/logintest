@@ -1,0 +1,252 @@
+
+
+<!--
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+  -->
+
+<%@page import="com.zhang.javabean.Room"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>选择服务</title>
+	<script type="text/javascript" src="jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="meetRoomEdit.js"></script>
+</head>
+<style>
+	/*整体框架end*/
+	*{
+  		margin:0;
+  		padding: 0;
+  	}
+	body{
+		background: url('img/mainbg1.png') repeat-x;
+
+	}
+	#container{
+		height:760px;
+		width:1000px;
+		margin: 10px auto;
+		background: url('img/bg1.jpg') no-repeat;
+	
+	}
+	#header{
+		height:134px;
+		background: url('img/header.jpg') no-repeat;
+	}
+	#logo{
+		float: left;
+		width: 100px;
+		height: 100px;
+		margin-top: 10px;
+		margin-left:40px;
+		background: url('img/logo.png') no-repeat;
+	}
+	#title{
+		float: left;
+		width: 453px;
+		height:75px;
+		margin-top: 25px;
+		margin-left: 100px;
+		background: url('img/title.png') no-repeat;
+	}
+	#content{
+		height:560px;
+		border:1px solid transparent;
+		background: url('img/content.png') repeat;
+	}
+	#bottomDivider{
+		height: 5px;
+		background: url('img/bottomDivider.jpg') no-repeat;
+	}
+	#bottom{
+		height:55px;
+		text-align: center;
+		padding-top: 10px;
+		background: url('img/bottom.jpg') no-repeat;
+	}
+	/*整体框架end*/
+	/*input、select样式*/
+	  input,select{
+	    border-radius: 3px;
+	    border: 1px #155B6A solid;
+	    border-radius: 5px;
+	    background: none;
+	    margin-top: 2px;
+	    transition: all 0.30s ease-in-out;
+	    -webkit-transition: all 0.30s ease-in-out;
+	    -moz-transition: all 0.30s ease-in-out;
+	    outline:none;
+	  }
+	  input:focus,select:focus{
+	    border:#35a5e5 1px solid;
+	    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+	    -webkit-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+	    -moz-box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+	  }
+	 /*input、select样式end/
+	/*三个按钮*/
+	#guidCont p{
+		/*position: absolute;*/
+		margin-top: 100px;
+		margin-left: 150px;
+		color:#c85554;
+		font-weight: bold;
+		font-size: 30px;
+	}
+	#btnCont{
+		margin-top:10px;
+		margin-left: 230px;
+	} 
+	#btnCont .button{
+		float: left;
+		width: 280px;
+		height: 50px;
+		margin:5px;
+		padding: 10px;
+		border: none;
+		border-radius: 50px;
+		color:#fff;
+		cursor: pointer;
+		font-size: 22px;
+		background: #49D7D2;
+		text-decoration: none;
+	}
+	#btnCont .button:hover{
+		background: #008792;
+	}
+	#btnCont .editMeetRoomBtn{
+		margin-left: 160px;
+		background: #f15a22;
+	}
+	#btnCont .editMeetRoomBtn:hover{
+		background: #f3704b;
+	}
+	.btnDisabled{ 
+    border: 2px solid #aaa;                /*按钮禁用*/
+    background:#d8d8d8 !important ;
+  }
+	/*三个按钮end*/
+	/*添加会议室弹窗*/
+	#addMeetRoomWin{
+		position: absolute;
+		padding: 20px 10px;
+        background: #ddd;
+        border:10px solid #eee;
+        border-radius: 5px;
+        font-size: 20px;
+        line-height: 30px;
+        -moz-box-shadow:5px 5px 5px #999 ;              
+        -webkit-box-shadow:5px 5px 5px #999 ;           
+        box-shadow:5px 5px 5px #999 ; 
+        z-index: 999;
+	}
+	#addMeetRoomWin>p{
+		color: red;
+		font-size: 15px;
+		font-weight: bold;
+	}
+	#addMeetRoomWin input[type=text]{
+		line-height: 32px;
+        font-size: 20px;
+	}
+	#addMeetRoomWin .button{
+		margin-left:70px; 
+		margin-top: 10px; 
+		width:62px;
+    	height:25px;
+    	border:none;
+    	border-radius: 20px;
+        border:0;
+        text-align: center;
+	}
+	#addMeetRoomWin #confirmBtn{
+		background: #79cd40;
+	}
+	#addMeetRoomWin #confirmBtn:hover{
+		background: #8dd45e;
+	}
+	#addMeetRoomWin #cancelBtn{
+    background: #ed1941;
+  }
+  	#addMeetRoomWin #cancelBtn:hover{
+    background: #ef4136;
+  }
+	/*添加会议室弹窗end*/
+	/*mask*/
+	#mask{
+		position: absolute;
+		top:0;
+		left:0;
+		background: #000;
+		filter:alpha(opacity=50); 
+		-moz-opacity:0.5;
+		opacity:0.5;
+		z-index: 998;
+	}
+	/*mask end*/
+</style>
+<body>
+	<div id='container'>
+		<div id='header'>
+			<div id='logo'></div>
+			<div id="title"></div>
+		</div>
+		
+		<div id="content">
+		<div id="guidCont">
+			<p>请选择：</p>
+
+
+		<%
+		int usertype=(Integer)session.getAttribute("usertype");
+		String username =(String)session.getAttribute("userName");
+		String class1="";
+		String disable="";
+		switch(usertype)
+		{
+			case 1:
+			{
+				class1="button editMeetRoomBtn";
+				break;
+			}
+			case 2:
+			{
+				class1="button editMeetRoomBtn";
+				break;
+			}
+			case 3:
+			{
+				class1="btnDisabled";
+				disable="disable";
+				break;
+				}
+			default:
+				class1="button editMeetRoomBtn";
+				break;
+				
+		}
+		%>
+
+		</div>
+		
+
+
+		</div>
+		
+
+		<div id="btnCont">
+			<input type="button" onclick="window.open('reservationInfo.jsp','_parent')" class="button toRevPageBtn" value="会议预定、文件上传" />
+			<input type="button" onclick="window.open('documentSearch.jsp','_parent')" class="button toHistoryPageBtn" value="会议历史检索"  />
+			<input type="button"  class="<%=class1 %>" id="editMeetRoomBtn" value="添加会议室(管理员专用)" <%=disable%>/>
+		</div>
+
+		</div>
+
+		<div id="bottomDivider"></div>
+		<div id='bottom'>copyright blabla版权所有</div>
+	</div>
+
+</body>
+</html>

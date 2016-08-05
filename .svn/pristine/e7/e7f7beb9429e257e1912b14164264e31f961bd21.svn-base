@@ -1,0 +1,174 @@
+package com.zhang.VerifyLogin;
+
+import java.io.* ;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+
+import javax.servlet.http.* ;
+import javax.servlet.* ;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.cookie.Cookie;
+import org.apache.http.impl.client.BasicCookieStore;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+import com.zhang.dao.MysqlAction;
+import com.zhang.javabean.User;
+
+
+public class LoginServlet extends HttpServlet implements Servlet {
+
+	 public LoginServlet(){
+		 
+	 }
+	 
+	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	 
+	 }
+	 
+	 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+	  response.setContentType("text/html;charset=UTF-8") ;
+	  request.setCharacterEncoding("UTF-8") ;
+	  String result = "" ;
+	  HttpSession session =  request.getSession() ;
+	  
+	  String username = request.getParameter("username") ;
+	  String psw = request.getParameter("password") ;
+	  
+	  BasicCookieStore cookieStore = new BasicCookieStore();
+      CloseableHttpClient httpclient = HttpClients.custom()
+              .setDefaultCookieStore(cookieStore)
+              .build();
+      try {
+          HttpGet httpget = new HttpGet("http://localhost:5080/openmeetings/");
+          CloseableHttpResponse response1 = httpclient.execute(httpget);
+          try {
+              HttpEntity entity = response1.getEntity();
+
+              System.out.println("Login form get: " + response1.getStatusLine());
+              EntityUtils.consume(entity);
+
+              System.out.println("Initial set of cookies:");
+              List<Cookie> cookies = cookieStore.getCookies();
+              if (cookies.isEmpty()) {
+                  System.out.println("None");
+              } else {
+                  for (int i = 0; i < cookies.size(); i++) {
+                      System.out.println("- " + cookies.get(i).toString());
+                  }
+              }
+          } finally {
+              response1.close();
+          }
+
+          HttpUriRequest login = RequestBuilder.post()
+                  .setUri(new URI("http://localhost:5080/openmeetings/"))
+                  .addParameter("IDToken1", username)
+                  .addParameter("IDToken2", psw)
+                  .build();
+          CloseableHttpResponse response2 = httpclient.execute(login);
+          try {
+        	 
+              HttpEntity entity = response2.getEntity();
+
+              System.out.println("Login form get: " + response2.getStatusLine());
+              EntityUtils.consume(entity);
+
+              System.out.println("Post logon cookies:");
+              List<Cookie> cookies = cookieStore.getCookies();             
+              if (cookies.isEmpty()) {
+                  System.out.println("None");
+              } else {
+//              	System.out.println("- +" +  cookies.getvalue());
+                  for (int i = 0; i < cookies.size(); i++) {   
+                	  session.setAttribute("jsessionid", cookies.get(0).getValue());
+                  	System.out.println("- + -" + cookies.get(0).getValue());
+                      System.out.println("- +" + cookies.get(i).toString());
+                  }
+              }
+          } finally {
+              response2.close();
+          }
+      } catch (URISyntaxException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+          httpclient.close();
+      }
+	  
+	  if ((username == "") || (username==null) || (username.length() > 20 )){
+	   try{
+	    result = "请输入用户名(不能超过20个字符)!" ;
+	    request.setAttribute("message" ,result) ;
+	    response.sendRedirect("login.jsp") ;
+	   }catch(Exception e){
+	    e.printStackTrace() ;
+	   }
+	  }
+	  
+	  if ((psw == "") || (psw==null) || (psw.length() > 20 )){
+	   try{
+	    result = "请输入密码(不能超过20个字符)!" ;
+//	    request.setAttribute("message" ,result) ;
+	    response.sendRedirect("login.jsp") ;
+	   }catch(Exception e){
+	    e.printStackTrace() ;
+	   }
+	  }	  
+	  
+//	   HttpSession session =  request.getSession() ;
+//       session.setAttribute("userName", username) ;
+//	   System.out.println("login username:" + username) ;
+	   
+	 
+	  
+	  MD5Implementation md5Implementation = new MD5Implementation();
+	  String password = md5Implementation.createPassPhrase(psw);
+	  System.out.println("用户输入的密码为："+psw+"，处理后的密码为："+password);
+	  
+	  
+	  
+	  MysqlAction mysqlAction = new MysqlAction();
+	  try {
+		int a=0;
+		a= mysqlAction.getResultbyUserNameandPassword(username, password);
+		if (a==1){ 
+			
+				System.out.println("登陆成功！");
+			    response.sendRedirect("choosetofutureorhistory.html") ;	
+			    
+		        session.setAttribute("userName", username) ;
+		        session.setAttribute("password", psw);
+			    System.out.println("login username:" + username) ;
+			    
+			    MysqlAction mysqlaction = new MysqlAction();
+//				User user = mysqlaction.getUserbyName((String)session.getAttribute("userName"));
+			    User user = mysqlaction.getUserbyName(username);
+				int user_level_id = user.getUserType();
+				session.setAttribute("usertype", user_level_id) ;
+				System.out.println("login usertype:" + user_level_id) ;
+				
+				
+				
+		   }else{
+//		    session.setAttribute("message", "用户名或密码不匹配。");
+			   System.out.println("用户名或者密码不正确，请重新登录！");
+		    response.sendRedirect("login.jsp");
+		   }
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	  
+  
+	 }
+	 
+	 private static final long serialVersionUID = 1L;
+
+}

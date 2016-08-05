@@ -1,0 +1,526 @@
+package com.zhang.javabean;
+
+import java.util.Date;
+
+import com.zhang.dao.MysqlAction;
+
+public class Booking {
+	//Booking class with variables and methods needed for a booking 
+	private int bookingNum;
+	private String name;
+	private Date date;
+	private int roomnum;
+	private String participants;
+	private String confername;
+	private String confertype;
+	private String confertheme;
+	private String conferagenda;
+	private String time;
+	// variables and methods needed for conference system
+//	private boolean allow_font_styles;
+//	private boolean allow_recording;
+//	private boolean allow_user_questions;
+//	private boolean appointment;
+//	private boolean auto_video_select;
+//	private boolean chat_moderated;
+//	private boolean chat_opened;
+//	private String comment_field;
+//	private String confno;
+//	private boolean deleted;
+//	private int demo_time;
+//	private long externalRoomId;
+//	private String externalRoomType;
+//	private Boolean files_opened;
+//	private Boolean hide_actions_menu;
+//	private Boolean hide_activities_and_actions;
+//	private Boolean hide_chat;
+//	private Boolean hide_files_explorer;
+//	private Boolean hide_screen_sharing;
+//	private Boolean hide_top_bar;
+//	private Boolean hide_whiteboard;
+//	private Boolean is_audio_only;
+//	private Boolean is_closed;
+//	private Boolean isdemoroom;
+//	private Boolean ismoderatedroom;
+//	private Boolean ispublic;
+//	private String confersystemname;
+//	private long numberOfPartizipants;
+//	private long owner_id;
+//	private String pin;
+//	private String redirect_url;
+//	private Boolean show_microphone_status;
+//	private Boolean sip_enabled;
+//	private java.sql.Date starttime;
+//	private java.sql.Date updatetime;
+//	private Boolean wait_for_recording;
+//	private long roomtypes_id;
+	private String bookinghash;
+	
+	public Booking(){
+		setBookingNum(0);
+		setName("");
+		setDate(null);		
+		setRoomNum(0);
+		setConferparticipants("");
+		setConferName("");
+		setConferType("");
+		setConferTheme("");
+		setConferAgenda("");
+		setTime("");
+//		setAllowFontStytles(false);
+//		setAllowRecording(false);
+//		setAllowUserQuestions(false);
+//		setAppointment(false);
+//		setAutoVideoSelect(false);
+//		setChatModerated(false);
+//		setChatOpened(false);
+//		setCommentField("");
+//		setConfno("");
+//		setDeleted(false);
+//		setDemoTime(0);
+//		setExternalRoomId(0);
+//		setExternalRoomType("");
+//		setFilesOpened(false);
+//		setHideActionsMenu(false);
+//		setHideActivitiesandActions(false);
+//		setHideChat(false);
+//		setHideFilesExplorer(false);
+//		setHideScreenSharing(false);
+//		setHideTopBar(false);
+//		setHideWhiteboard(false);
+//		setIsAudioOnly(false);
+//		setIsClosed(false);
+//		setIsDemoroom(false);
+//		setIsModeratedroom(false);
+//		setIsPublic(false);
+//		setNumberOfPartizipants((long) 0);
+//		setOwnerId((long) 0);
+//		setPin("");
+//		setRedirectUrl("");
+//		setSipEnabled(false);
+//		setStartTime(null);
+//		setUpdateTime(null);
+//		setWaitForRecording(false);
+//		setRoomTypesId((long)0);
+		setBookingHash("");
+	}
+	public Booking(int bookingNum, String bookedBy, Date date,int roomnum, String confername,String confertype,String confertheme,String conferagenda,String time,String bookinghash){
+		this.setBookingNum(bookingNum);
+		this.setName(bookedBy);
+		this.setDate(date);	
+		this.setRoomNum(roomnum);
+		this.setConferName(confername);
+		this.setConferType(confertype);
+		this.setConferTheme(confertheme);
+		this.setConferAgenda(conferagenda);
+		this.setTime(time);
+		this.setBookingHash(bookinghash);
+	}
+//	public Booking(int bookingNum, String bookedBy,String time, Date date,String confername,String confertype,String confertheme,String conferagenda,
+//			Boolean allow_font_styles,Boolean allow_recording,Boolean allow_user_questions,Boolean appointment,
+//			Boolean auto_video_select,Boolean chat_moderated,Boolean chat_opened,
+//			String comment_field,String confno,Boolean deleted,int demo_time,
+//			long externalRoomId,String externalRoomType,Boolean files_opened,
+//			Boolean hide_actions_menu,Boolean hide_activities_and_actions,
+//			Boolean hide_chat,Boolean hide_files_explorer,Boolean hide_screen_sharing,
+//			Boolean hide_top_bar,Boolean hide_whiteboard,Boolean is_audio_only,
+//			Boolean is_closed,Boolean isdemoroom,Boolean ismoderatedroom,Boolean ispublic,
+//			String confersystemname,long numberOfPartizipants,long owner_id,String pin,String redirect_url,
+//			Boolean show_microphone_status,Boolean sip_enabled,java.sql.Date starttime,java.sql.Date updatetime,
+//			Boolean wait_for_recording,long roomtypes_id,String bookinghash ){
+//		this.setBookingNum(bookingNum);
+//		this.setName(bookedBy);
+//		this.setDate(date);
+//		this.setTime(time);
+//		this.setConferName(confername);
+//		this.setConferType(confertype);
+//		this.setConferTheme(confertheme);
+//		this.setConferAgenda(conferagenda);
+//		this.setAllowFontStytles(allow_font_styles);
+//		this.setAllowRecording(allow_recording);
+//		this.setAllowUserQuestions(allow_user_questions);
+//		this.setAppointment(appointment);
+//		this.setAutoVideoSelect(auto_video_select);
+//		this.setChatModerated(chat_moderated);
+//		this.setChatOpened(chat_opened);
+//		this.setCommentField(comment_field);
+//		this.setConfno(confno);
+//		this.setDeleted(deleted);
+//		this.setDemoTime(demo_time);
+//		this.setExternalRoomId(externalRoomId);
+//		this.setExternalRoomId(externalRoomId);
+//		this.setFilesOpened(files_opened);
+//		this.setHideActionsMenu(hide_actions_menu);
+//		this.setHideActivitiesandActions(hide_activities_and_actions);
+//		this.setHideChat(hide_chat);
+//		this.setHideFilesExplorer(hide_files_explorer);
+//		this.setHideScreenSharing(hide_screen_sharing);
+//		this.setHideTopBar(hide_top_bar);
+//		this.setHideWhiteboard(hide_whiteboard);
+//		this.setIsAudioOnly(is_audio_only);
+//		this.setIsClosed(is_closed);
+//		this.setIsClosed(is_closed);
+//		this.setIsDemoroom(isdemoroom);
+//		this.setIsModeratedroom(ismoderatedroom);
+//		this.setIsPublic(ispublic);
+//		this.setConferSystemName(confersystemname);
+//		this.setNumberOfPartizipants(numberOfPartizipants);
+//		this.setOwnerId(owner_id);
+//		this.setPin(pin);
+//		this.setRedirectUrl(redirect_url);
+//		this.setShowMicrophoneStatus(show_microphone_status);
+//		this.setSipEnabled(sip_enabled);
+//		this.setStartTime(starttime);
+//		this.setUpdateTime(updatetime);
+//		this.setWaitForRecording(wait_for_recording);
+//		this.setRoomTypesId(roomtypes_id);
+//		this.setBookingHash(bookinghash);
+//	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public int getBookingNum() {
+		return bookingNum;
+	}
+	public void setBookingNum(int bookingNum) {
+		this.bookingNum = bookingNum;
+	}
+	public int getRoomNum() {
+		return roomnum;
+	}
+	public void setRoomNum(int roomnum) {
+		this.roomnum = roomnum;
+	}
+	public String getConferparticipants() {
+		return participants;
+	}
+	public void setConferparticipants(String participants) {
+		this.participants = participants;
+	}
+	public String getConferName() {
+		return confername;
+	}
+	public void setConferName(String confername) {
+		this.confername = confername;
+	}
+	public String getConferType() {
+		return confertype;
+	}
+	public void setConferType(String confertype) {
+		this.confertype = confertype;
+	}
+	public String getConferTheme() {
+		return confertheme;
+	}
+	public void setConferTheme(String confertheme) {
+		this.confertheme = confertheme;
+	}
+	
+	public String getConferAgenda() {
+		return conferagenda;
+	}
+	public void setConferAgenda(String conferagenda) {
+		this.conferagenda = conferagenda;
+	}
+	
+//	public Boolean getAllowFontStytles(){
+//		return allow_font_styles;
+//	}
+//	public void setAllowFontStytles(Boolean allow_font_styles){
+//		this.allow_font_styles=allow_font_styles;
+//	}
+//	
+//	public Boolean getAllowRecording(){
+//		return allow_recording;
+//	}
+//	public void setAllowRecording(Boolean allow_recording){
+//		this.allow_recording = allow_recording;
+//	}
+//	
+//	public Boolean getAllowUserQuestions(){
+//		return allow_user_questions;
+//	}
+//	public void setAllowUserQuestions(Boolean allow_user_questions ){
+//		this.allow_user_questions = allow_user_questions; 
+//	}
+//	
+//	public Boolean getAppointment(){
+//		return appointment;
+//	}
+//	public void setAppointment(Boolean appointment){
+//		this.appointment = appointment;
+//	}
+//	
+//	public Boolean getAutoVideoSelect(){
+//		return auto_video_select;
+//	}
+//	public void setAutoVideoSelect(Boolean auto_video_select){
+//		this.auto_video_select = auto_video_select;
+//	}
+//	
+//	public Boolean getChatModerated(){
+//		return chat_moderated;
+//	}
+//	public void setChatModerated(Boolean chat_moderated){
+//		this.chat_moderated = chat_moderated;
+//	}
+//	
+//	public Boolean getChatOpened(){
+//		return chat_opened;
+//	}
+//	public void setChatOpened(Boolean chat_opened){
+//		this.chat_opened = chat_opened;
+//	}
+//	
+//	public String getCommentField(){
+//		return comment_field;
+//	}
+//	public void setCommentField(String comment_field){
+//		this.comment_field = comment_field;
+//	}
+//	
+//	public String getConfno(){
+//		return confno;
+//	}
+//	public void setConfno(String confno){
+//		this.confno = confno;
+//	}
+//	
+//	public Boolean getdeleted(){
+//		return deleted;
+//	}
+//	public void setDeleted(Boolean deleted){
+//		this.deleted = deleted;
+//	}
+//	
+//	public int getDemoTime(){
+//		return demo_time;
+//	}
+//	public void setDemoTime(int demo_time){
+//		this.demo_time = demo_time;
+//	}
+//	
+//	public long getExternalRoomId(){
+//		return externalRoomId;
+//	}
+//	public void setExternalRoomId(long externalRoomId){
+//		this.externalRoomId = externalRoomId;
+//	}
+//	
+//	public String getExternalRoomType(){
+//		return externalRoomType;
+//	}
+//	public void setExternalRoomType(String externalRoomType){
+//		this.externalRoomType = externalRoomType;
+//	}
+//	
+//	public Boolean getFilesOpened(){
+//		return files_opened;
+//	}
+//	public void setFilesOpened(Boolean files_opened){
+//		this.files_opened = files_opened;
+//	}
+//	
+//	public Boolean getHideActionsMenu(){
+//		return hide_actions_menu;
+//	}
+//	public void setHideActionsMenu(Boolean hide_actions_menu){
+//		this.hide_actions_menu = hide_actions_menu;
+//	}
+//	
+//	public Boolean getHideActivitiesandActions(){
+//		return hide_activities_and_actions;
+//	}
+//	public void setHideActivitiesandActions(Boolean hide_activities_and_actions){
+//		this.hide_activities_and_actions = hide_activities_and_actions;
+//	}
+//	
+//	public Boolean getHideChat(){
+//		return hide_chat;
+//	}
+//	public void setHideChat(Boolean hide_chat){
+//		this.hide_chat = hide_chat;
+//	}
+//	
+//	public Boolean getHideFilesExplorer(){
+//		return hide_files_explorer;
+//	}
+//	public void setHideFilesExplorer(Boolean hide_files_explorer){
+//		this.hide_files_explorer = hide_files_explorer;
+//	}
+//	
+//	public Boolean getHideScreenSharing(){
+//		return hide_screen_sharing;
+//	}
+//	public void setHideScreenSharing(Boolean hide_screen_sharing){
+//		this.hide_screen_sharing = hide_screen_sharing;
+//	}
+//	
+//	public Boolean getHideTopBar(){
+//		return hide_top_bar;
+//	}
+//	public void setHideTopBar(Boolean hide_top_bar){
+//		this.hide_top_bar = hide_top_bar;
+//	}
+//	
+//	public Boolean getHideWhiteboard(){
+//		return hide_whiteboard;
+//	}
+//	public void setHideWhiteboard(Boolean hide_whiteboard){
+//		this.hide_whiteboard = hide_whiteboard;
+//	}
+//	
+//	public Boolean getIsAudioOnly(){
+//		return is_audio_only;
+//	}
+//	public void setIsAudioOnly(Boolean is_audio_only){
+//		this.is_audio_only = is_audio_only;
+//	}
+//	
+//	public Boolean getIsClosed(){
+//		return is_closed;
+//	}
+//	public void setIsClosed(Boolean is_closed){
+//		this.is_closed = is_closed;
+//	}
+//	
+//	public Boolean getIsDemoroom(){
+//		return isdemoroom;
+//	}
+//	public void setIsDemoroom(Boolean isdemoroom){
+//		this.isdemoroom = isdemoroom;
+//	}
+//	
+//	public Boolean getIsModeratedroom(){
+//		return ismoderatedroom;
+//	}
+//	public void setIsModeratedroom(Boolean ismoderatedroom){
+//		this.ismoderatedroom = ismoderatedroom;
+//	}
+//	
+//	public Boolean getIsPublic(){
+//		return ispublic;
+//	}
+//	public void setIsPublic(Boolean ispublic){
+//		this.ispublic = ispublic;
+//	}
+//	
+//	public String getConferSystemName(){
+//		return confersystemname;
+//	}
+//	public void setConferSystemName(String confersystemname){
+//		this.confersystemname = confersystemname;
+//	}
+//	
+//	public Long getNumberOfPartizipants(){
+//		return numberOfPartizipants;
+//	}
+//	public void setNumberOfPartizipants(Long numberOfPartizipants){
+//		this.numberOfPartizipants = numberOfPartizipants;
+//	}
+//	
+//	public Long getOwnerId(){
+//		return owner_id;
+//	}
+//	public void setOwnerId(Long owner_id){
+//		this.owner_id = owner_id;
+//	}
+//	
+//	public String getPin(){
+//		return pin;
+//	}
+//	public void setPin(String pin){
+//		this.pin = pin;
+//	}
+//	
+//	public String getRedirectUrl(){
+//		return redirect_url;
+//	}
+//	public void setRedirectUrl(String redirect_url){
+//		this.redirect_url = redirect_url;
+//	}
+//	
+//	public Boolean getShowMicrophoneStatus(){
+//		return show_microphone_status;
+//	}
+//	public void setShowMicrophoneStatus(Boolean show_microphone_status){
+//		this.show_microphone_status = show_microphone_status;
+//	}
+//	
+//	public Boolean getSipEnabled(){
+//		return sip_enabled;
+//	}
+//	public void setSipEnabled(Boolean sip_enabled){
+//		this.sip_enabled = sip_enabled;
+//	}
+//	
+//	public java.sql.Date getStartTime(){
+//		return starttime;
+//	}
+//	public void setStartTime(java.sql.Date starttime){
+//		this.starttime = starttime;
+//	}
+//	
+//	public java.sql.Date getUpdateTime(){
+//		return updatetime;
+//	}
+//	public void setUpdateTime(java.sql.Date updatetime){
+//		this.updatetime = updatetime;
+//	}
+//	
+//	public Boolean getWaitForRecording(){
+//		return wait_for_recording;
+//	}
+//	public void setWaitForRecording(Boolean wait_for_recording){
+//		this.wait_for_recording = wait_for_recording;
+//	}
+//	
+//	public Long getRoomTypesId(){
+//		return roomtypes_id;
+//	}
+//	public void setRoomTypesId(Long roomtypes_id){
+//		this.roomtypes_id = roomtypes_id;
+//	}
+	
+	public String getBookingHash(){
+		return bookinghash;
+	}
+	public void setBookingHash(String bookinghash){
+		this.bookinghash = bookinghash;
+	}
+	
+	public void AddBooking() throws Exception {
+		try {
+			MysqlAction newMysqlAction = new MysqlAction();	
+			newMysqlAction.addBooking(this.name, this.date, this.roomnum,this.confername,this.confertype,this.confertheme,this.conferagenda,this.participants,this.time,this.bookinghash);
+//			newMysqlAction.addBookingtoConferSystem(this.allow_font_styles,this.allow_recording,this.allow_user_questions,this.appointment,
+//					this.auto_video_select,this.chat_moderated,this.chat_opened,this.comment_field,this.confno,this.deleted,this.demo_time,
+//					this.externalRoomId,this.externalRoomType,this.files_opened,this.hide_actions_menu,this.hide_activities_and_actions,
+//					this.hide_chat,this.hide_files_explorer,this.hide_screen_sharing,this.hide_top_bar,this.hide_whiteboard,this.is_audio_only,
+//					this.is_closed,this.isdemoroom,this.ismoderatedroom,this.ispublic,this.confersystemname,this.numberOfPartizipants,
+//					this.owner_id,this.pin,this.redirect_url,this.show_microphone_status,this.sip_enabled,this.starttime,this.updatetime,this.wait_for_recording,this.roomtypes_id);
+		} catch (Exception e) {
+		      throw e;
+	}
+
+	}	
+
+	}
+	
+
+	

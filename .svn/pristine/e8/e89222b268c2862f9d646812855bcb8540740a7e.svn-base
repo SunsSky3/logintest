@@ -1,0 +1,109 @@
+package com.zhang.booking;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import net.sf.json.JSONArray;
+
+import com.zhang.dao.MysqlAction;
+
+
+public class AvailableTimeServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+	
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=utf-8"); 
+        request.setCharacterEncoding("utf-8");
+        PrintWriter out = response.getWriter();
+        
+        String meetRoomSel1 = request.getParameter("meetRoomSel");	
+        System.out.println("meetRoomSel string:"+meetRoomSel1);
+        int meetRoomSel=Integer.parseInt(meetRoomSel1);
+        System.out.println("meetRoomSel int:"+meetRoomSel1);
+        
+        String chooseResevDate = request.getParameter("chooseResevDate");	
+        System.out.println("chooseResevDate:"+chooseResevDate);
+  	   
+  	      	         
+		  
+		  Date date=null ;	
+
+		  SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+		  try {
+			 date = DATE_FORMAT.parse(chooseResevDate);
+
+			 System.out.println("转换格式之后的时间："+date);
+			 
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		};
+		
+		
+		MysqlAction mysqlAction = new MysqlAction();
+		try {
+			 String alltimelots = mysqlAction.getAllTimeslots();
+			 String[] time1 = alltimelots.split(",");
+			 System.out.println("time1:"+time1);
+			 List<String> list = new ArrayList<String>();
+			 list = Arrays.asList(time1);
+			 System.out.println("list:"+list);
+			 ArrayList<String> arrayList = new ArrayList<String>();
+			 for (int i = 0; i < list.size(); i++ ){
+					arrayList.add( list.get(i) ) ;
+				}
+			 System.out.println("arrayList"+arrayList);
+			 
+			 String timelots = mysqlAction.getBookingInfobyNameandDate(meetRoomSel,date);
+			 String[] time2 = timelots.split(",");
+			 System.out.println("timelots:"+timelots);
+			 List<String> list2 = new ArrayList<String>();
+			 list2 = Arrays.asList(time2);			 
+			 System.out.println(list2);
+			 ArrayList<String> arrayList2 = new ArrayList<String>();
+			 for (int i = 0; i < list2.size(); i++ ){
+					arrayList2.add( list2.get(i) ) ;
+				}
+			 System.out.println("arrayList"+arrayList);
+			 arrayList.removeAll(arrayList2);
+			 System.out.println("arrayList2:"+arrayList2);
+			 
+			 String jsonarray = JSONArray.fromObject(arrayList).toString();
+			 System.out.println(jsonarray);
+			 HttpSession session=request.getSession();
+//			 Session.setAttribute("list", list.toString());
+			 session.setAttribute("jsonarray", jsonarray);
+             
+             out.println(jsonarray);
+             out.flush();
+             out.close();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ }
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		  response.setContentType("text/html;charset=UTF-8") ;
+		  request.setCharacterEncoding("UTF-8") ;
+		  doGet(request, response);
+		
+	}
+
+}

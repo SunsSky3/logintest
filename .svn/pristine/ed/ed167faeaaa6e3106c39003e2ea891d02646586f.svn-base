@@ -1,0 +1,76 @@
+package com.zhang.booking;
+
+import java.util.Date;
+
+public class organisation {
+	private	int id;
+	private int deleted;
+	private int insertedby;
+	private String name;
+	private Date starttime;
+	private int updatedby;
+	private Date updatetime;
+	
+	public organisation(){
+		setDeleted(deleted);
+		setInsertedby(insertedby);
+		setName(name);
+		setStarttime(starttime);
+		setUpdatedby(updatedby);
+		setUpdatetime(updatetime);
+	}
+	
+	public organisation(int deleted,String name,Date starttime) {
+	this.setDeleted(0);
+	this.setName(null);
+	this.setStarttime(null);	
+	}
+	
+	public int getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
+	}
+
+	public int getInsertedby() {
+		return insertedby;
+	}
+
+	public void setInsertedby(int insertedby) {
+		this.insertedby = insertedby;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Date getStarttime() {
+		return starttime;
+	}
+
+	public void setStarttime(Date starttime) {
+		this.starttime = starttime;
+	}
+
+	public int getUpdatedby() {
+		return updatedby;
+	}
+
+	public void setUpdatedby(int updatedby) {
+		this.updatedby = updatedby;
+	}
+
+	public Date getUpdatetime() {
+		return updatetime;
+	}
+
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
+	}
+}

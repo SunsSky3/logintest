@@ -1,0 +1,24 @@
+package com.zhang.file;
+
+
+public class OfficeToPDF {
+
+	public static void main(String[] args){
+		
+		OfficeToPDFTools otp = new OfficeToPDFTools();
+//		
+//		if(args.length > 2){
+//			otp.startService(args[0]);
+		    otp.startService();
+//			String file1 = args[1];
+//			String file2 = args[2];
+			String file1 = "D://project//file//test.doc";
+			String file2 = "D://project//file//test.pdf";
+			otp.threadOfficeToPDF(file1, file2);
+//		}else{
+//			System.out.println("������մ����������������");
+//		}
+	}
+	
+}
+
