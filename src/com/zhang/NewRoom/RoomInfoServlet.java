@@ -12,6 +12,7 @@ import net.sf.json.JSONArray;
 
 import com.zhang.dao.MysqlAction;
 import com.zhang.javabean.Room;
+
 import java.io.PrintWriter;
 
 public class RoomInfoServlet extends HttpServlet {
@@ -24,6 +25,8 @@ public class RoomInfoServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//System.out.println("This is RoomInfoServlet !");
+		
 		response.setContentType("text/html;charset=utf-8"); 
 	    request.setCharacterEncoding("utf-8");
 	    PrintWriter out = response.getWriter();	        
@@ -33,8 +36,6 @@ public class RoomInfoServlet extends HttpServlet {
 		try {
 			list = mysqlAction.getRoomInfo();
 	        String jsonarray = JSONArray.fromObject(list).toString();
-//	        jsonarray=jsonarray.replace("\"", "\'");
-	        System.out.println("jsonarray:"+jsonarray);   
 	        out.println(jsonarray);
             out.flush();
             out.close();

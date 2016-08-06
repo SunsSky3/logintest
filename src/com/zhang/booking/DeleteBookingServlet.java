@@ -23,17 +23,14 @@ public class DeleteBookingServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//System.out.println("This is DeleteBookingServlet !");
 		int conferId =Integer.parseInt( request.getParameter("conferId"));
-//		System.out.println("DeleteBookingServlet conferId:"+conferId);
 		MysqlAction mysqlAction = new MysqlAction();
 		try {
 			Booking booking = mysqlAction.getBookingbyconferId(conferId);
-			String confername = booking.getConferName();			
+			String confername = booking.getConferName();	
 			int room_id = mysqlAction.getroom_idbyName(confername);
-//			System.out.println("?delete room_id:"+room_id);
-			
 			int organization_id = mysqlAction.getOrganization_idbyName(confername);
-//			System.out.println("?delete organization_id:"+organization_id);
 			
 			mysqlAction.deleteBookingbybookingnum(conferId,room_id,organization_id);
 		} catch (Exception e) {

@@ -15,10 +15,9 @@ public class FileDownloadServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-	
+		//System.out.println("This is FileDownloadServlet !");
 		response.setCharacterEncoding("UTF-8");
 		String path=request.getParameter("path");	
-//		String path = "D:\\project\\file\\"+"upload\\";
 		path=new String(path.getBytes("ISO-8859-1"));
 		File file=new File(path);
 		InputStream in=new FileInputStream(file);

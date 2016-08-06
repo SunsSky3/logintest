@@ -24,6 +24,7 @@ public class LoginServlet extends HttpServlet implements Servlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		//System.out.println("LoginServlet Begin");
 		response.setContentType("text/html;charset=UTF-8") ;
 		request.setCharacterEncoding("UTF-8") ;
 		String result = "" ;
@@ -83,8 +84,6 @@ public class LoginServlet extends HttpServlet implements Servlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-
 	}
 
 	private static final long serialVersionUID = 1L;

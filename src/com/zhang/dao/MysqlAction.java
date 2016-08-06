@@ -11,6 +11,12 @@ import java.util.Date;
 
 //import javax.swing.JOptionPane;
 
+
+
+
+
+
+
 import com.zhang.javabean.*;
 
 
@@ -922,14 +928,15 @@ public class MysqlAction {
 
 	public void deleteBookingbybookingnum(int bookingnum,int room_id,int organisation_id) throws Exception {
 		try {
-			databaseConnection();     		 	
-
+			databaseConnection();  
 			//sql to delete a booking from the booking table
 			statement.execute(" delete from openmeetings.booking where bookingnum='"+bookingnum+"' ");
 			statement.execute(" delete from openmeetings.file where bookingnum='"+bookingnum+"' ");
 			statement.execute(" delete from openmeetings.room where id='"+room_id+"' ");
+			statement.execute("delete from openmeetings.rooms_organisation where rooms_id='"+room_id+"'AND organisation_id='"+organisation_id+"' ");	
+			statement.execute(" SET FOREIGN_KEY_CHECKS = 0");
 			statement.execute(" delete from openmeetings.organisation where id='"+organisation_id+"' ");
-			statement.execute("delete from openmeetings.rooms_organisation where rooms_id='"+room_id+"',organisation_id='"+organisation_id+"' ");	      	
+			statement.execute(" SET FOREIGN_KEY_CHECKS = 1");
 		} catch (Exception e) {
 			throw e;
 

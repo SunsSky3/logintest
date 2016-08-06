@@ -19,6 +19,7 @@ public class NewRoomServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		//System.out.println("NewRoomServlet Begin!");
 		response.setContentType("text/html;charset=UTF-8") ;
 		request.setCharacterEncoding("UTF-8") ;	
 		
@@ -26,8 +27,6 @@ public class NewRoomServlet extends HttpServlet {
 		String meetRoomCapacity = request.getParameter("meetRoomCapacity");
 		String meetRoomLocation = request.getParameter("meetRoomLocation");	
 		String meetRoomEqui = request.getParameter("meetRoomEqui");	
-		
-//		System.out.println("room："+meetRoomName+meetRoomCapacity+meetRoomLocation+meetRoomEqui);
 		
 		Date now = new Date();
 		

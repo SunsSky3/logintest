@@ -18,9 +18,10 @@ public class BookingServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		//System.out.println("BookingServlet Begin!");
+		
 		response.setContentType("text/html;charset=UTF-8") ;
-		request.setCharacterEncoding("UTF-8") ;		  
-        System.out.println("This is BookingServlet !");
+		request.setCharacterEncoding("UTF-8") ; 
 		//get login username
 		HttpSession session =  request.getSession() ;
 		String username =(String) session.getAttribute("userName");  
@@ -144,7 +145,6 @@ public class BookingServlet extends HttpServlet {
 			mysqlAction.addrooms_organisation(rooms_id, organisation_id);			
 
 			if(participant!=null){
-				System.out.println("????????????????????????????????????????");
 				for(int i=0;i<participant.length;i++){
 					int user_id = mysqlAction.getuser_idbyName(participant[i]);
 					System.out.println("user_id:"+user_id);
@@ -157,7 +157,6 @@ public class BookingServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		response.sendRedirect("reservationInfo.jsp");
-
 	}
 
 }

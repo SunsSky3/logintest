@@ -10,22 +10,23 @@ import javax.servlet.http.HttpSession;
 import java.io.* ;
 
 public class InquireServlet extends HttpServlet implements Servlet {
-	
-	 public InquireServlet(){
-	 }
-	 
-	
-	 protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-	  response.setContentType("text/html;charset=UTF-8") ;
-	  request.setCharacterEncoding("UTF-8") ;	  
-	  
-	  String date = request.getParameter("chooseDate") ;
-	  HttpSession session =  request.getSession() ;
-	  session.setAttribute("chooseDate", date);
-	  
-      response.sendRedirect("reservationInfo.jsp");
-	
-	 } 
-	 
-	 private static final long serialVersionUID = 1L;
+
+	public InquireServlet(){
+	}
+
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		//System.out.println("InquireServlet Begin!");
+
+		response.setContentType("text/html;charset=UTF-8") ;
+		request.setCharacterEncoding("UTF-8") ;	  
+
+		String date = request.getParameter("chooseDate") ;
+		HttpSession session =  request.getSession() ;
+		session.setAttribute("chooseDate", date);
+
+		response.sendRedirect("reservationInfo.jsp");
+	} 
+
+	private static final long serialVersionUID = 1L;
 }
