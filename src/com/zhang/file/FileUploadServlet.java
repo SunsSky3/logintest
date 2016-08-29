@@ -30,14 +30,14 @@ public class FileUploadServlet extends HttpServlet{
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		//System.out.println("FileUploadServlet Begin!");
+		System.out.println("FileUploadServlet Begin!");
 		request.setCharacterEncoding("UTF8");
 
 		String conferName = null;
 		HttpSession session =  request.getSession() ;
 		MysqlAction mysqlaction = new MysqlAction();
 
-		String uploadPath = "E:\\conference\\file\\"+"upload\\";
+		String uploadPath = "C:\\conference\\file\\"+"upload\\";
 
 		File folder = new File(uploadPath);
 		System.out.println("文件存放在服务器上的路径："+folder);
@@ -63,31 +63,22 @@ public class FileUploadServlet extends HttpServlet{
 
 					if(!fm.isFormField()){
 						String filePath = fm.getName();  //获取文件全路径名
-						//				System.out.println("文件名："+filePath);
 
 						int startIndex = filePath.lastIndexOf("\\");
 						if(startIndex!=-1){  //对文件名进行截取
 							fileName = filePath.substring(startIndex+1);
 							session.setAttribute("fileName", fileName);
-							//					System.out.println("文件名1："+fileName);
 						}else{
 							fileName = filePath;
-
-							//					System.out.println("文件名2："+fileName);
-
 						}
 						if(fm.getSize()>maxsize){
-							//					message= "文件太长了，不要超过20MB";
 							break;
 						}
 						if((fileName==null)||(fileName.equals(""))&&(fm.getSize()==0)){
-							//					message = "文件不能为空，文件大小也不能为零！";
-
 							break;
 						}
 						File saveFile = new File(uploadPath,fileName);
 						fm.write(saveFile);  //向文件中写入数据
-						//				message = "文件上传成功！";
 						now = new Date();
 						session.setAttribute("uploadtime", now);
 
@@ -101,7 +92,6 @@ public class FileUploadServlet extends HttpServlet{
 							conferName = newbooking.getConferName();
 
 							mysqlaction.addFileInfo(fileName, uploader, now, roomnum, conferId, filesize);	
-							//						System.out.println("hahh！");
 
 						} catch (Exception e) {
 
@@ -128,7 +118,7 @@ public class FileUploadServlet extends HttpServlet{
 					String fileHashName = md5Implementation.createPassPhrase(fileNameNoEx+now);
 
 					//在red5服务器的upload/files下新建文件夹（名字为fileHashName），为后面把上传的文件重命名后生成pdf、swf等格式，生成xml文件作准备
-					String red5FilePath = "E:\\conference\\opm\\3.0.x\\dist\\red5\\webapps\\openmeetings\\upload\\files\\"+fileHashName+"\\";
+					String red5FilePath = "C:\\conference\\conference\\opm\\3.0.x\\dist\\red5\\webapps\\openmeetings\\upload\\files\\"+fileHashName+"\\";
 					File newFile =new File(red5FilePath);
 					if(newFile.exists())
 					{
@@ -188,11 +178,10 @@ public class FileUploadServlet extends HttpServlet{
 					}		      
 
 
-					// 生成pdf，swf，xml文件
-					//topdf
+/*					// 生成pdf，swf，xml文件
 					if (FileOriginal.exists()) {
 						//		        	System.out.println("正要转化为pdf！");
-						String openOfficePath = "E:\\conference\\OpenOffice 4\\";
+						String openOfficePath = "C:\\conference\\conference\\OpenOffice 4\\";
 						OfficeToPDFTools otp = new OfficeToPDFTools();
 						otp.startService(openOfficePath);
 						//			        System.out.println("openoffice 启动成功！");
@@ -236,7 +225,7 @@ public class FileUploadServlet extends HttpServlet{
 						}
 					} else {
 						//					System.out.println("生成xml文件错误！");
-					}
+					}*/
        
 				}
 			}

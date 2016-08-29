@@ -16,7 +16,7 @@ public class InquireServlet extends HttpServlet implements Servlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		//System.out.println("InquireServlet Begin!");
+		System.out.println("InquireServlet Begin!");
 
 		response.setContentType("text/html;charset=UTF-8") ;
 		request.setCharacterEncoding("UTF-8") ;	  

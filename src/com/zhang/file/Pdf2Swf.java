@@ -7,7 +7,7 @@ public class Pdf2Swf {
     // 转换后的swf文件路径  
     private static String OUTPUT_PATH;  
     // pdf2swf.exe的路径  
-    private static String PDF2SWF_PATH = "E:\\conference\\swfttools\\pdf2swf.exe";  
+    private static String PDF2SWF_PATH = "C:\\conference\\conference\\swfttools\\pdf2swf.exe";  
 
     private static String fileName = "";
     

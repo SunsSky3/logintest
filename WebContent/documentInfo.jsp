@@ -420,7 +420,7 @@
 						<td><%= file.getUploadtime() %></td>
 						<td>
 					<!--  	<A HREF="download.jsp?path=<%=URLEncoder.encode(getServletContext().getRealPath(file.getFilename()),"GBK")%>">	-->
-						<A HREF="download.jsp?path=<%=URLEncoder.encode("D:/project/file/upload/"+file.getFilename(),"GBK")%>">							
+						<A HREF="download.jsp?path=<%=URLEncoder.encode("C:/conference/file/upload/"+file.getFilename(),"GBK")%>">							
 							<input type="button" id="docuDownBtn" value="下载" />
 							</A>
 						</td>

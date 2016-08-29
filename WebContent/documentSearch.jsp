@@ -320,8 +320,9 @@
 						<td><%= file.getFilename()%></td>
 						<td><%= file.getUploader()%> </td>
 						<td><%= file.getUploadtime()%></td>			
-						<td>
-						<A HREF="download.jsp?path=<%=URLEncoder.encode(getServletContext().getRealPath(file.getFilename()),"GBK")%>">	
+						<td> 
+<%-- 						<A HREF="download.jsp?path=<%=URLEncoder.encode(getServletContext().getRealPath(file.getFilename()),"GBK")%>">	 --%>
+						<A HREF="download.jsp?path=<%=URLEncoder.encode("C:/conference/file/upload/"+file.getFilename(),"GBK")%>">	
 							<input type="button" id="docuDownBtn" value="下载" />
 						</A>
 						</td>

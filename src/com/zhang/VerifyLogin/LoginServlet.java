@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet implements Servlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		//System.out.println("LoginServlet Begin");
+		System.out.println("LoginServlet Begin");
 		response.setContentType("text/html;charset=UTF-8") ;
 		request.setCharacterEncoding("UTF-8") ;
 		String result = "" ;
@@ -54,9 +54,9 @@ public class LoginServlet extends HttpServlet implements Servlet {
 			}
 		}	   
 
-		//	  MD5Implementation md5Implementation = new MD5Implementation();
-		//	  String password = md5Implementation.createPassPhrase(psw);
-		String password = psw;
+			  MD5Implementation md5Implementation = new MD5Implementation();
+			  String password = md5Implementation.createPassPhrase(psw);
+		//String password = psw;
 		System.out.println("用户输入的密码为："+psw+"，处理后的密码为："+password);
 
 

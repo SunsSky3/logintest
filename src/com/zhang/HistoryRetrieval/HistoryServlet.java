@@ -40,7 +40,7 @@ public class HistoryServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//System.out.println("HistoryServlet Begin!");
+		System.out.println("HistoryServlet Begin!");
 		
 		response.setContentType("text/html;charset=UTF-8") ;
 		request.setCharacterEncoding("UTF-8") ;

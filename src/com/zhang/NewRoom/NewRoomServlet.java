@@ -19,7 +19,7 @@ public class NewRoomServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//System.out.println("NewRoomServlet Begin!");
+		System.out.println("NewRoomServlet Begin!");
 		response.setContentType("text/html;charset=UTF-8") ;
 		request.setCharacterEncoding("UTF-8") ;	
 		

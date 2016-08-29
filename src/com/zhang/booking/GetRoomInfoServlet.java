@@ -21,7 +21,7 @@ public class GetRoomInfoServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//System.out.println("This is GetRoomInfoServlet !");
+		System.out.println("This is GetRoomInfoServlet !");
 		int conferId =Integer.parseInt( request.getParameter("conferId"));
 		HttpSession session =  request.getSession();
 		session.setAttribute("conferId",conferId);

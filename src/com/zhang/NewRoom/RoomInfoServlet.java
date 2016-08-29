@@ -25,7 +25,7 @@ public class RoomInfoServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("This is RoomInfoServlet !");
+		System.out.println("This is RoomInfoServlet !");
 		
 		response.setContentType("text/html;charset=utf-8"); 
 	    request.setCharacterEncoding("utf-8");
