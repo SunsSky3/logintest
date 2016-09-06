@@ -275,18 +275,18 @@
 						<td>
 							<label for="roomChoose">会 议 室 :&nbsp;&nbsp; </label>
 							<select class="roomChoose txt txt5" name = "chooseroomnum" id="roomChoose">
-						            <option value ="">--------------请选择--------------------------</option>
-                 <%
-                   MysqlAction mysqlAction2 = new MysqlAction();
-                   String meetRoomSel = mysqlAction2.getAllRooms();
-                   String[] meetRoomSel1 = meetRoomSel.split(",");
-                   if(meetRoomSel1!=null)
-                       for(int i=0;i<meetRoomSel1.length;i++){
-                     %>       
-                     <option value = "<%=meetRoomSel1[i]%>"><%="会议室编号："+meetRoomSel1[i]%></option>
-                     <%
-                   }
-                 %> 
+						         <option value ="">--------------请选择--------------------------</option>
+				                 <%
+				                   MysqlAction mysqlAction2 = new MysqlAction();
+				                   String meetRoomSel = mysqlAction2.getAllRooms();
+				                   String[] meetRoomSel1 = meetRoomSel.split(",");
+				                   if(meetRoomSel1!=null)
+				                       for(int i=0;i<meetRoomSel1.length;i++){
+				                     %>       
+				                     <option value = "<%=meetRoomSel1[i]%>"><%="会议室编号："+meetRoomSel1[i]%></option>
+				                     <%
+				                   }
+				                 %> 
 							</select>
 						</td>
 					</tr>
@@ -306,30 +306,26 @@
 			<div class="documentTableCont">
 				<div class="documentTableCont1">
 					<table class="documentTable">
-					
-					<%				
-                   
-					ArrayList list  = (ArrayList)request.getAttribute("list"); 
-					//System.out.println(list);
-					if (!list.equals("")&&!list.equals("null")){
-                 	  for(int i = 0;i<list.size();i++){						
-   		              File file = (File)list.get(i);							
-                 	 
-                    %>  
-					<tr>
-						<td><%= file.getFilename()%></td>
-						<td><%= file.getUploader()%> </td>
-						<td><%= file.getUploadtime()%></td>			
-						<td> 
-<%-- 						<A HREF="download.jsp?path=<%=URLEncoder.encode(getServletContext().getRealPath(file.getFilename()),"GBK")%>">	 --%>
-						<A HREF="download.jsp?path=<%=URLEncoder.encode("C:/conference/file/upload/"+file.getFilename(),"GBK")%>">	
-							<input type="button" id="docuDownBtn" value="下载" />
-						</A>
-						</td>
-					</tr>
+						<%
+							ArrayList list  = (ArrayList)request.getAttribute("list"); 
+							//System.out.println(list);
+							if (!list.equals("")&&!list.equals("null")){
+		                 	  for(int i = 0;i<list.size();i++){						
+		   		              File file = (File)list.get(i);
+	                    %>  
+						<tr>
+							<td><%= file.getFilename()%></td>
+							<td><%= file.getUploader()%> </td>
+							<td><%= file.getUploadtime()%></td>			
+							<td> 
+								<%--<A HREF="download.jsp?path=<%=URLEncoder.encode(getServletContext().getRealPath(file.getFilename()),"GBK")%>">	 --%>
+								<A HREF="download.jsp?path=<%=URLEncoder.encode("C:/conference/file/upload/"+file.getFilename(),"GBK")%>">	
+									<input type="button" id="docuDownBtn" value="下载" />
+								</A>
+							</td>
+						</tr>
 					<% }%>
 				   <% }%>
-					 
 				</table>
 
 				</div>
@@ -337,24 +333,21 @@
 		  </div>
 
 	<script>
-//下载按钮 禁用
+		//下载按钮 禁用
 		var oDocuDownBtn=$('#docuDownBtn');
 		var isDocuDownBtnDis=false;            ////后台判断
 		BtnDisabled(oDocuDownBtn,isDocuDownBtnDis);
-//下载按钮 禁用end
-	function BtnDisabled(elem,isBtnDisabled){    
-		if(isBtnDisabled){
-			elem.attr("disabled", "disabled")//按钮禁用
-				.addClass("btnDisabled");
-		}
-		else{
-			elem.removeAttr("disabled");//解禁
-				// .removeClass("btnDisabled");
-		}
-
+		//下载按钮 禁用end
+		function BtnDisabled(elem,isBtnDisabled){    
+			if(isBtnDisabled){
+				elem.attr("disabled", "disabled")//按钮禁用
+				elem.addClass("btnDisabled");
+			}
+			else{
+				elem.removeAttr("disabled");//解禁
+			}	
 		};
-	</script>
-	
+	</script>	
 		<div id="bottomDivider"></div>
 		<div id='bottom'>copyright blabla版权所有</div>
 	</div>

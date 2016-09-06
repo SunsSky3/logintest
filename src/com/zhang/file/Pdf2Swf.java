@@ -7,15 +7,11 @@ public class Pdf2Swf {
     // 转换后的swf文件路径  
     private static String OUTPUT_PATH;  
     // pdf2swf.exe的路径  
-    private static String PDF2SWF_PATH = "C:\\conference\\conference\\swfttools\\pdf2swf.exe";  
+    //private static String PDF2SWF_PATH = "C:\\conference\\conference\\swfttools\\pdf2swf.exe";  
+    private static String PDF2SWF_PATH = "C:\\MtSyDeploy\\SWFTools\\pdf2swf.exe";
 
     private static String fileName = "";
-    
-//    public static void main(String[] args) { 
-//    	String  inpath = "D:/project/file/test.pdf";
-//    	String  outpath = "D:/project/file/";
-//    	Pdf2Swf.pdfToSwf(inpath,outpath,fileName);  
-//    }  
+ 
     /**   
      * PDF转SWF 
      * @param pdffile PDF文件全路径   
@@ -39,11 +35,11 @@ public class Pdf2Swf {
         String type = INPUT_PATH.substring(INPUT_PATH.lastIndexOf(".") + 1, INPUT_PATH.length())  
                 .toLowerCase();  
         if (type.equals("pdf")){     
-//            System.out.println("*****是pdf文件*****");     
+        	//System.out.println("*****是pdf文件*****");     
             return 0;     
         }   
         else{  
-//            System.out.println("*****非pdf文件*****");   
+        	//System.out.println("*****非pdf文件*****");   
             return 9;  
         }         
     }  
@@ -52,23 +48,21 @@ public class Pdf2Swf {
      */   
     private static void toSwf(String fileName) {    
         if(new File(INPUT_PATH).isFile()){  
-            System.out.println("*****正在转换..*****");  
+            //System.out.println("*****正在转换..*****");  
             try {      
                 // 调用创建的bat文件进行转换   
                 String cmd = PDF2SWF_PATH + " " + INPUT_PATH+ " -o "   
-                        + OUTPUT_PATH + fileName + " -f -T 9"; 
-//                System.out.println("cmd: " + cmd);  
-                Runtime.getRuntime().exec(cmd);  
-   
-//                System.out.println("*****转换成功*******");  
+                        + OUTPUT_PATH + fileName + " -f -T 9";  
+                Runtime.getRuntime().exec(cmd);
+                //System.out.println("*****转换成功*******");  
             }   
             catch (Exception e) {    
                 e.printStackTrace();    
-//                System.out.println("*****转换失败*******");  
+                //System.out.println("*****转换失败*******");  
             }    
         }  
         else{  
-//            System.out.println("*****文件不存在*****");  
+        	//System.out.println("*****文件不存在*****");  
         }  
     }  
 }

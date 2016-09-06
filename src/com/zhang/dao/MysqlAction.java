@@ -134,9 +134,7 @@ public class MysqlAction {
 			int room_id = 0; 
 			// ResultSet is initially before the first data set
 			while (resultSet.next()) {
-
 				room_id = resultSet.getInt("id");
-
 			}
 			return room_id;
 
@@ -285,9 +283,9 @@ public class MysqlAction {
 			long room_id,java.sql.Date updated
 			) throws Exception {    
 		try {
-			connect = DriverManager.getConnection("jdbc:mysql://localhost?"
-
-              + "user=root&password=0000");             
+//			connect = DriverManager.getConnection("jdbc:mysql://localhost?"
+//              + "user=root&password=0000");  
+			connect = DriverManager.getConnection(url,user,password); 
 			boolean Deleted = false;
 			long external_file_id = 0;
 			String external_type = null;

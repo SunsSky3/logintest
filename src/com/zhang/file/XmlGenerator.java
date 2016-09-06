@@ -23,9 +23,6 @@ public class XmlGenerator {
 	String originalDocument ;
 	String pdfDocument ;
 	String swfDocument ;
-//	String originalDocument ="123" ;
-//	String pdfDocument ="321" ;
-//	String swfDocument ="234" ;
 	
 	public void build(String sourceXml,String filepath,String originalDocument,String pdfDocument,String swfDocument,String size1,String size2,String size3,String lastmod1,String lastmod2,String lastmod3){  
         try {  
@@ -53,26 +50,19 @@ public class XmlGenerator {
 							.addText(swfDocument);					
 			}
                         
-//            Element thumbs = rootElement.addElement( "thumbs" );
+            //Element thumbs = rootElement.addElement( "thumbs" );
             rootElement.addElement( "thumbs" );            
-//            System.out.println(document.asXML()); //将document文档对象直接转换成字符串输出  
-//            Writer fileWriter = new FileWriter("library.xml");  
+            //System.out.println(document.asXML()); //将document文档对象直接转换成字符串输出  
+            //Writer fileWriter = new FileWriter("library.xml");  
             Writer fileWriter = new FileWriter(sourceXml);  
             //dom4j提供了专门写入文件的对象XMLWriter  
             XMLWriter xmlWriter = new XMLWriter(fileWriter); 
             xmlWriter.write(document);             
             xmlWriter.flush();  
             xmlWriter.close();  
-//            System.out.println("xml文档添加成功！");  
+            //System.out.println("xml文档添加成功！");  
         } catch (IOException e) {  
             e.printStackTrace();  
         }  
-    }  
-	
-      
-//    public static void main(String[] args) {  
-//    	XmlGenerator demo = new XmlGenerator();  
-//        demo.build();  
-//    }  
-	
+    }  	
 }
