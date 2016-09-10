@@ -27,7 +27,7 @@ public class AvailableTimeServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		System.out.println("This is AvailableTimeSerlet !");
+
 		System.out.println("This is AvailableTimeSerlet !");
 		
 		response.setContentType("text/html;charset=utf-8"); 
