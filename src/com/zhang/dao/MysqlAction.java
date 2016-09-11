@@ -27,7 +27,7 @@ public class MysqlAction {
 	
     public static String url = "jdbc:mysql://localhost:3306/openmeetings";
     public static String user = "root";
-    public static String password = "106381";
+    public static String password = "SunsSky";
 
 	public void databaseConnection() throws Exception{
 		// This will load the MySQL driver
