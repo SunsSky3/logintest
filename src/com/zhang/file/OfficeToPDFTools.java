@@ -3,6 +3,7 @@ package com.zhang.file;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import com.artofsolving.jodconverter.DocumentConverter;
 import com.artofsolving.jodconverter.openoffice.connection.OpenOfficeConnection;
@@ -11,7 +12,7 @@ import com.artofsolving.jodconverter.openoffice.converter.OpenOfficeDocumentConv
 
 public class OfficeToPDFTools {
 
-	public void startService(String openOfficePath, String sourceFile, String destFile){
+	public void startService(String openOfficePath, String sourceFile, String destFile) throws InterruptedException{
 		 
 		String OpenOffice_HOME = openOfficePath; //这里是OpenOffice的安装目录
 		
@@ -26,12 +27,10 @@ public class OfficeToPDFTools {
 				+ "program\\soffice.exe -headless -accept=\"socket,host=localhost,port=8100;urp;\"";
 		Process pro =null;
 		try {			
-			pro = Runtime.getRuntime().exec(command);
-			
-			/////////////////////////////////////////////////////////////////
+			pro = Runtime.getRuntime().exec(command);			
+			TimeUnit.MILLISECONDS.sleep(6000);	//休息6s，确保OpenOffice已启动
 			
 			File inputFile = new File(sourceFile);
-
 			// 如果目标路径不存在, 则新建该路径
 			File outputFile = new File(destFile);
 			if (!outputFile.getParentFile().exists()) {
@@ -52,8 +51,7 @@ public class OfficeToPDFTools {
 			connection.disconnect();
 			
 			// 封闭OpenOffice服务的进程  
-            pro.destroy();  
-			/////////////////////////////////////////////////////////////////
+            pro.destroy(); 
 		} catch (FileNotFoundException e) {  
             e.printStackTrace();  
         } catch (IOException e) {  
