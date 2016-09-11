@@ -51,6 +51,15 @@
             com.zhang.file.FileDownloadServlet
         </servlet-class>
   </servlet>
+  
+  
+  <servlet>
+    <servlet-name>FileDeleteServlet</servlet-name>
+    <servlet-class>
+            com.zhang.file.FileDeleteServlet
+        </servlet-class>
+  </servlet>
+  
   <servlet>
     <servlet-name>GetRoomInfoServlet</servlet-name>
     <servlet-class>
@@ -101,6 +110,10 @@
   <servlet-mapping>
     <servlet-name>FileDownloadServlet</servlet-name>
     <url-pattern>/FileDownloadServlet</url-pattern>
+  </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>FileDeleteServlet</servlet-name>
+    <url-pattern>/FileDeleteServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>GetRoomInfoServlet</servlet-name>
