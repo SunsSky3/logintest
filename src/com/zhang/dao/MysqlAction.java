@@ -27,7 +27,7 @@ public class MysqlAction {
 	
     public static String url = "jdbc:mysql://localhost:3306/openmeetings";
     public static String user = "root";
-    public static String password = "SunsSky";
+    public static String password = "106381";
 
 	public void databaseConnection() throws Exception{
 		// This will load the MySQL driver
@@ -134,7 +134,9 @@ public class MysqlAction {
 			int room_id = 0; 
 			// ResultSet is initially before the first data set
 			while (resultSet.next()) {
+
 				room_id = resultSet.getInt("id");
+
 			}
 			return room_id;
 
@@ -283,9 +285,9 @@ public class MysqlAction {
 			long room_id,java.sql.Date updated
 			) throws Exception {    
 		try {
-//			connect = DriverManager.getConnection("jdbc:mysql://localhost?"
-//              + "user=root&password=0000");  
-			connect = DriverManager.getConnection(url,user,password); 
+			connect = DriverManager.getConnection("jdbc:mysql://localhost?"
+
+              + "user=root&password=0000");             
 			boolean Deleted = false;
 			long external_file_id = 0;
 			String external_type = null;
@@ -517,6 +519,26 @@ public class MysqlAction {
 		}
 
 	} 
+	
+	/**  
+	* @Name: deleteFileByFileName
+	* @Description: 通过文件名删除该文件在数据库中的信息
+	* @Author: 汪志文（作者）
+	* @Version: V1.00 （版本号）
+	* @Create Date:2016-9-9 
+	* @Parameters: fileName 文件名
+	* @Return: 无
+	*/
+	public void deleteFileByFileName(String fileName) throws Exception{
+		try {		
+			databaseConnection();
+			statement.execute(" delete from openmeetings.file where filename='"+fileName+"' ");
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			close();
+		}
+	}
 
 
 	public String getBookingInfobyNameandDate(int roomnum,Date date) throws Exception {
@@ -1030,6 +1052,8 @@ public class MysqlAction {
 			close();
 		}
 	}
+
+	
 
 
 }
