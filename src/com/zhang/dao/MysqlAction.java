@@ -27,7 +27,7 @@ public class MysqlAction {
 	
     public static String url = "jdbc:mysql://localhost:3306/openmeetings";
     public static String user = "root";
-    public static String password = "SunsSky";
+    public static String password = "106381";
 
 	public void databaseConnection() throws Exception{
 		// This will load the MySQL driver
@@ -520,26 +520,6 @@ public class MysqlAction {
 
 	} 
 	
-	/**  
-	* @Name: deleteFileByFileName
-	* @Description: 通过文件名删除该文件在数据库中的信息
-	* @Author: 汪志文（作者）
-	* @Version: V1.00 （版本号）
-	* @Create Date:2016-9-9 
-	* @Parameters: fileName 文件名
-	* @Return: 无
-	*/
-	public void deleteFileByFileName(String fileName) throws Exception{
-		try {		
-			databaseConnection();
-			statement.execute(" delete from openmeetings.file where filename='"+fileName+"' ");
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			close();
-		}
-	}
-
 
 	public String getBookingInfobyNameandDate(int roomnum,Date date) throws Exception {
 		try {
@@ -1025,7 +1005,7 @@ public class MysqlAction {
 				System.out.println(sql);
 				resultSet = statement.executeQuery(sql);
 				while(resultSet.next()){
-
+					int fileId = resultSet.getInt("id");
 					String filename = resultSet.getString("filename");
 					String uploader = resultSet.getString("uploader");
 					Date uploadtime = resultSet.getDate("uploadtime");
@@ -1033,7 +1013,7 @@ public class MysqlAction {
 					int bookingNum =resultSet.getInt("bookingnum");
 
 					File file = new File();	         
-
+					file.setId(fileId);
 					file.setFilename(filename);
 					file.setUploader(uploader);
 					file.setUploadtime(uploadtime);

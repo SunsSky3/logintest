@@ -81,6 +81,26 @@ public class FileUploadServlet extends HttpServlet{
 							break;
 						}
 						File saveFile = new File(uploadPath,fileName);
+						
+						/**  
+						* @Description: 对重复文件名上传进行修改文件名
+						* @Author: 汪志文（作者）
+						* @Create Date: 2016-9-17（创建日期）
+						*/
+						int refile = 0;
+						while(saveFile.exists()){
+							refile++;
+							String [] strings = fileName.split("\\.");
+							int length = strings.length;
+
+							String reg = ".*\\([0-9]\\)";
+						    if(strings[length-2].matches(reg)){
+						    	strings[length-2] = strings[length-2].substring(0,strings[length-2].length()-3);
+						    }
+							fileName = strings[length-2]+"("+refile+")"+"."+strings[length-1];
+							saveFile=new File(uploadPath,fileName);
+						}
+
 						fm.write(saveFile);  //向文件中写入数据
 						now = new Date();
 						session.setAttribute("uploadtime", now);

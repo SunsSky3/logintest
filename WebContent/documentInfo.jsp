@@ -234,10 +234,12 @@
         border:1px solid #006f86; 		
 	}
 	.tableTitle table td:nth-child(1){
-		width: 380px;
+		width: 410px;
 	}
 	.tableTitle table td:nth-child(2),
-    .tableTitle table td:nth-child(3),
+    .tableTitle table td:nth-child(3){
+      width: 138px;
+    }
     .tableTitle table td:nth-child(4){
       width: 142px;
     }
@@ -279,12 +281,12 @@
     	background: #fbf8e9;
     }   
     .documentTable tbody td:nth-child(1){
-     width:400px;
+     width:410px;
      }
     .documentTable td:nth-child(2),
     .documentTable td:nth-child(3),
     .documentTable td:nth-child(4){
-      width: 140px;
+      width: 138px;
     }  
     #docuDownBtn{
     	width: 50px;
@@ -414,7 +416,7 @@
 					<td>文件名称</td>
 					<td>上传者</td>
 					<td>上传日期</td>					
-					<td>下载</td>
+					<td>下载或删除</td>
 				</tr>
 				
 				</table>
@@ -422,8 +424,7 @@
 			<div class="documentTableCont">
 				<div class="documentTableCont1">
 				
-				
-				
+				<form id="Form2" name="Form2"  method="post">
 					<table class="documentTable">
 					<%
 						ArrayList list = mysqlAction.getFileInfobyBookingHash(bookingnum);
@@ -439,15 +440,18 @@
 						<td><%= file.getUploader() %></td>
 						<td><%= file.getUploadtime() %></td>
 						<td>
+						<input type="hidden" name="fileInfoId" value="<%= file.getId()%>"/><!-- fileInfoId隐藏域传到action中 -->
 					<!--  	<A HREF="download.jsp?path=<%=URLEncoder.encode(getServletContext().getRealPath(file.getFilename()),"GBK")%>">	-->
 						<A HREF="download.jsp?path=<%=URLEncoder.encode("C:/conference/file/upload/"+file.getFilename(),"GBK")%>">							
 							<input type="button" id="docuDownBtn" value="下载" /></A>
-							<input id=<%="fileId"+i %> type="button" value="删除" class="fileDelete">
+							<input id=<%="fileId"+i %>  type="button" value="删除" class="fileDelete">
 						</td>
 					</tr>
 					<% }%>
 				   <% }%>
 				</table>
+				</form>
+				
 				</div>
 			</div>
 		  </div>
@@ -498,21 +502,34 @@
 	
 	<script>
 	 	/**
-		 * 使用了ajax 给文件删除添加一个click事件
+		 * 使用了jquery 给文件删除添加一个click事件
 		 * 
 		 */
-		$("input[id^='fileId']").click(function(){
+		 
+     /* $("input[id^='fileId']").click(function(){
 			if (window.confirm("您确认要删除吗?")) {
-				var a = $(this);
-				var pid = a.parent().parent().attr("id");
+				//$(this).parent().parent().remove();			
+				$("#Form2").attr("action","fileDeleteAction_delete.do");
+     			$("#Form2").submit(); 
+
+			}
+		});   */ 
+		
+	 	 
+	 	 $("input[id^='fileId']").click(function(){
+			if (window.confirm("您确认要删除吗?")) {
+				 var a = $(this);
 				 var text = a.parent().siblings("td:first").text(); 
-				$.post("FileDeleteServlet", {
-					text: text,
+				 var fileInfoId = a.siblings("input").val();
+				 
+				$.post("fileDeleteAction_delete.do", {
+					fileInfoId: fileInfoId,
+					text:text
 				}, function(data){
 					a.parent().parent().remove();
 				});
 			}
-		});
+		});   
 	 </script>
 	
 </body>

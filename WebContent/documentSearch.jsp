@@ -1,3 +1,9 @@
+<%@page import="com.zhang.mrbs.dao.IFindFileByIdDao"%>
+<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
+<%@page import="java.sql.Timestamp"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.zhang.javabean.Booking"%>
 <%@page import="com.zhang.javabean.File"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.*"%>
@@ -157,12 +163,19 @@
         border:1px solid #006f86; 		
 	}
 	.tableTitle table td:nth-child(1){
-		width: 380px;
+		width: 355px;
 	}
-	.tableTitle table td:nth-child(2),
-    .tableTitle table td:nth-child(3),
+	.tableTitle table td:nth-child(2){
+		width: 165px;
+	}
+    .tableTitle table td:nth-child(3){
+    	width: 95px;
+    }
     .tableTitle table td:nth-child(4){
-      width: 142px;
+      width: 166px;
+    }
+     .tableTitle table td:nth-child(5){
+      width: 75px;
     }
  
 	/*         tableTilte end                  */
@@ -202,16 +215,19 @@
     	background: #fbf8e9;
     }   
     table.documentTable tbody td:nth-child(1){
-     width:441px;
+     width:360px;
      }  
     table.documentTable tbody td:nth-child(2){
      width: 170px;
     }
     table.documentTable tbody td:nth-child(3){
-     width: 170px;
+     width: 100px;
     }
     table.documentTable tbody td:nth-child(4){
-      width: 144px;
+      width: 170px;
+    }
+    table.documentTable tbody td:nth-child(5){
+      width: 70px;
     }
     #docuDownBtn{
     	width: 50px;
@@ -297,6 +313,7 @@
 				<table>
 				<tr>
 					<td>文件名称</td>
+					<td>会议名称</td>
 					<td>上传者</td>
 					<td>上传日期</td>
 					<td>下载</td>
@@ -310,13 +327,32 @@
 							ArrayList list  = (ArrayList)request.getAttribute("list"); 
 							//System.out.println(list);
 							if (!list.equals("")&&!list.equals("null")){
-		                 	  for(int i = 0;i<list.size();i++){						
+		                 	  for(int i = list.size()-1;i>=0;i--){						
 		   		              File file = (File)list.get(i);
+		   		              
+		   		              int bookingnum = file.getBookingnum();
+		   		              MysqlAction mysqlAction = new MysqlAction();
+		   		              Booking booking =  mysqlAction.getBookingbyconferId(bookingnum);
+						      System.out.println(booking.getConferName());
+							
+							
+								
+							/**  
+							* @Description: 从数据库中获取年月日小时的信息
+							* @Author: 汪志文（作者）
+							* @Create Date: 2016-9-17（创建日期）
+							*/
+							ApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
+							IFindFileByIdDao findFileByIdDao = (IFindFileByIdDao) ac.getBean(IFindFileByIdDao.SERVICE_NAME);
+							File cFile = findFileByIdDao.findObjectByID(file.getId());
+							String fileUploadDate = new SimpleDateFormat("yyyy-MM-dd HH").format(cFile.getUploadtime());
+	             			
 	                    %>  
 						<tr>
 							<td><%= file.getFilename()%></td>
+							<td><%= booking.getConferName()%></td>
 							<td><%= file.getUploader()%> </td>
-							<td><%= file.getUploadtime()%></td>			
+							<td><%= fileUploadDate %>时</td>			
 							<td> 
 								<%--<A HREF="download.jsp?path=<%=URLEncoder.encode(getServletContext().getRealPath(file.getFilename()),"GBK")%>">	 --%>
 								<A HREF="download.jsp?path=<%=URLEncoder.encode("C:/conference/file/upload/"+file.getFilename(),"GBK")%>">	

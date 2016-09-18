@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.zhang.javabean.File" table="File">
+		<id name="id" type="integer" column="id">
+			<generator class="increment"></generator>
+		</id>
+		<property name="filename" type="string" column="filename"></property>
+		<property name="uploader" type="string" column="uploader"></property>
+		<property name="uploadtime" type="timestamp" column="uploadtime"></property>
+		<property name="roomnum" type="integer" column="roomnum"></property>
+		<property name="bookingnum" type="integer" column="bookingnum"></property>
+		<property name="filesize" type="integer" column="filesize"></property>
+		<property name="bookinghash" type="string" column="bookinghash"></property>
+	</class>
+</hibernate-mapping>

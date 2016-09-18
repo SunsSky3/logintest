@@ -2,7 +2,7 @@ package com.zhang.javabean;
 
 import java.util.Date;
 
-public class File {
+public class File{
 	private int id;
     private String filename ;
     private String uploader ;

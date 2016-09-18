@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="true"></constant>
+	<!-- ui主题，简单主题 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<!-- 修改struts2的后缀 改成.do-->
+	<constant name="struts.action.extension" value="do"></constant>
+	
+	<!-- 测试 -->
+	<package name="system" namespace="/system" extends="struts-default">
+		<!-- 测试 -->
+		<action name="mrbsTextAction_*" class="mrbsTextAction" method="{1}">
+			<result name="save">/system/textAdd.jsp</result>
+		</action>
+
+	</package>
+	
+	<!-- 文件删除 -->
+	<package name="p1" extends="struts-default">
+		<!-- 测试 -->
+		<action name="fileDeleteAction_*" class="fileDeleteAction" method="{1}">
+			<result name="delete">/system/textAdd.jsp</result>
+		</action>
+
+	</package>
+
+	
+	
+</struts>
