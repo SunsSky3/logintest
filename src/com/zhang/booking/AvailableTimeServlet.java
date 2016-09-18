@@ -28,7 +28,6 @@ public class AvailableTimeServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		System.out.println("This is AvailableTimeSerlet !!!");
-		System.out.println("This is AvailableTimeSerlet !!!");
 		
 		response.setContentType("text/html;charset=utf-8"); 
 		request.setCharacterEncoding("utf-8");
