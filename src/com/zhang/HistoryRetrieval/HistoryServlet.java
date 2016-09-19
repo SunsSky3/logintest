@@ -1,11 +1,7 @@
 package com.zhang.HistoryRetrieval;
 
-import com.zhang.dao.MysqlAction;
-import com.zhang.javabean.File;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.zhang.dao.MysqlAction;
+import com.zhang.javabean.Booking;
 
 /**
  * Servlet implementation class HistoryServlet
@@ -35,8 +34,10 @@ public class HistoryServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	/*
+	 *@Description:会议检索请求处理
+	 *@Author：sky
+	 *@Create Date: 2016-9-19（修改）
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -50,25 +51,19 @@ public class HistoryServlet extends HttpServlet {
 		int usertype =Integer.parseInt( session.getAttribute("usertype").toString());
 		System.out.println("username & usertype:"+username+usertype);
 
-		String name = request.getParameter("choosename") ;
-		String people = request.getParameter("chooseuploader") ;
-		String room = request.getParameter("chooseroomnum") ;
-		String start = request.getParameter("start") ;
-		String end = request.getParameter("end") ;
+		String confername = request.getParameter("confername") ;    //获取会议名称
+		String confertheme = request.getParameter("confertheme") ;	//获取会议主题
+		String roomnum = request.getParameter("roomnum") ;			//获取会议室号
+		String start = request.getParameter("start") ;		//获取起始查询时间
+		String end = request.getParameter("end") ;			//获取终止查询时间
 
 		MysqlAction mysqlAction = new MysqlAction();
 
 		try {
-
-			ArrayList<File> list = mysqlAction.searchFile( name,people,room,start,end);
-			System.out.println("listsize:"+list.size());
+			ArrayList<Booking> list = mysqlAction.searchConference( confername,confertheme,roomnum,start,end); //调用检索函数
 			for(int i = 0; i<list.size();i++){
-				File file = (File)list.get(i);
-				String filename = file.getFilename();
-				String uploader = file.getUploader();
-				Date uploadtime = file.getUploadtime();
-				int roomnum = file.getRoomnum();
-				int bookingNum = file.getBookingnum();
+				Booking booking = (Booking)list.get(i);
+				int bookingNum = booking.getBookingNum();
 				int a = mysqlAction.checkIdentityToReservation(username, bookingNum);
 				System.out.println("a:"+a);
 				if (usertype==3||a==1) {
@@ -77,9 +72,8 @@ public class HistoryServlet extends HttpServlet {
 					list.remove(list.get(i));
 				}
 
-
 			}
-
+			
 			request.setAttribute("list", list);
 
 		} catch (Exception e) {
@@ -90,6 +84,13 @@ public class HistoryServlet extends HttpServlet {
 
 		RequestDispatcher rd = request.getRequestDispatcher("documentSearch.jsp");  
 
+		//为检索结果页保留检索信息，通过session会话实现
+		session.setAttribute("conferNameSearch",confername);  
+		session.setAttribute("conferThemeSearch",confertheme);
+		session.setAttribute("roomNumSearch",roomnum);
+		session.setAttribute("startSearch",start);
+		session.setAttribute("endSearch",end);
+		
 		rd.forward(request, response); 
 		return;  
 	}

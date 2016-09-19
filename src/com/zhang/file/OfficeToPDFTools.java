@@ -28,7 +28,7 @@ public class OfficeToPDFTools {
 		Process pro =null;
 		try {			
 			pro = Runtime.getRuntime().exec(command);			
-			TimeUnit.MILLISECONDS.sleep(6000);	//休息6s，确保OpenOffice已启动
+			TimeUnit.MILLISECONDS.sleep(10000);	//休息10s，确保OpenOffice已启动
 			
 			File inputFile = new File(sourceFile);
 			// 如果目标路径不存在, 则新建该路径

@@ -13,7 +13,7 @@
 		jdbc:mysql://localhost:3306/openmeetings?useUnicode=true&amp;characterEncoding=utf8
 	</property>
 	<property name="hibernate.connection.username">root</property>
-	<property name="hibernate.connection.password">106381</property>
+	<property name="hibernate.connection.password">SunsSky</property>
 	<!-- 设置事务自动提交
 	<property name="hibernate.connection.autocommit">true</property> --> 
 	<!-- 其他配置 -->

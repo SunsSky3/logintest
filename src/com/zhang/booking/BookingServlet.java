@@ -138,16 +138,16 @@ public class BookingServlet extends HttpServlet {
 			mysqlAction.addOrganisation(insertedby, confername, starttime);
 			int rooms_id= mysqlAction.getroom_idbyName(confername);
 			session.setAttribute("rooms_id", rooms_id);
-			System.out.println("rooms_id:"+rooms_id);
+			//System.out.println("rooms_id:"+rooms_id);
 
 			int organisation_id = mysqlAction.getOrganization_idbyName(confername);
-			System.out.println("organisation_id:"+organisation_id);
+			//System.out.println("organisation_id:"+organisation_id);
 			mysqlAction.addrooms_organisation(rooms_id, organisation_id);			
 
 			if(participant!=null){
 				for(int i=0;i<participant.length;i++){
 					int user_id = mysqlAction.getuser_idbyName(participant[i]);
-					System.out.println("user_id:"+user_id);
+					//System.out.println("user_id:"+user_id);
 					mysqlAction.addOrganisation_usersbyId(organisation_id, user_id);
 				}
 			}

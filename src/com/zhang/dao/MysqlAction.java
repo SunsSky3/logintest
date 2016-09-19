@@ -8,16 +8,11 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 //import javax.swing.JOptionPane;
-
-
-
-
-
-
-
-import com.zhang.javabean.*;
+import com.zhang.javabean.Booking;
+import com.zhang.javabean.File;
+import com.zhang.javabean.Room;
+import com.zhang.javabean.User;
 
 
 public class MysqlAction {
@@ -27,7 +22,7 @@ public class MysqlAction {
 	
     public static String url = "jdbc:mysql://localhost:3306/openmeetings";
     public static String user = "root";
-    public static String password = "106381";
+    public static String password = "SunsSky";
 
 	public void databaseConnection() throws Exception{
 		// This will load the MySQL driver
@@ -1034,6 +1029,72 @@ public class MysqlAction {
 	}
 
 	
+	/*
+	 *@Description:该函数可根据检索条件搜索会议，并返回搜索结果
+	 *@Author：sky
+	 *@Create Date: 2016-9-19
+	 */
+	public ArrayList<Booking> searchConference(String confername, String confertheme, String roomnum, String start, String end) throws Exception{
+		ArrayList<Booking> list = new ArrayList<Booking>();
+		String restriction ="";
+		String sql ="";
+		try {
+			databaseConnection();
+			// Result set get the result of the SQL query
+			if (!confername.equals("")||!confertheme.equals("")||!roomnum.equals("")||!start.equals("")||!end.equals(""))
+			{
+				restriction = restriction+" where ";
+
+				if(!confername.equals("")) 
+				{
+					restriction = restriction + "confername LIKE '%"+confername+"%' AND ";  
+				}
+				if(!confertheme.equals(""))
+				{
+					restriction = restriction + "confertheme LIKE '%"+confertheme+"' AND "; 
+				}
+				if(!roomnum.equals("")&&!roomnum.equals("null"))
+				{
+					restriction = restriction + "roomnum ='"+roomnum+"' AND "; 
+				}
+				if(!start.equals("")&&!end.equals(""))
+				{
+					restriction = restriction + "date > '"+start+"' AND date <='"+end+"' AND";
+				}
+				restriction = restriction.substring(0,restriction.length()-4);				
+				sql = "select * from openmeetings.booking" + restriction;
+				
+				resultSet = statement.executeQuery(sql);				
+				
+				while(resultSet.next()){
+					
+					int bookingNum = resultSet.getInt("bookingnum");		//预定编号
+					int roomNum = resultSet.getInt("roomnum");				//会议室
+					String conferName = resultSet.getString("confername");	//会议名称
+					String conferTheme = resultSet.getString("confertheme");//会议主题
+					Date date = resultSet.getDate("date");					//会议时间（日）					
+					String timeSlotID = resultSet.getString("timeslotID");	//会议时间（时ID）
+					
+					Booking booking = new Booking();	
+					booking.setBookingNum(bookingNum);
+					booking.setRoomNum(roomNum);
+					booking.setConferName(conferName);
+					booking.setConferTheme(conferTheme);
+					booking.setDate(date);
+					booking.setTime(timeSlotID);
+
+					list.add(booking);
+				}
+			}
+			return list;
+
+		} catch (Exception e) {
+			throw e;
+
+		} finally {
+			close();
+		}
+	}	
 
 
 }

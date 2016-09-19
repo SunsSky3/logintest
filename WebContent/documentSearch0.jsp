@@ -239,7 +239,6 @@
         		 <a onclick="window.open('documentSearch0.jsp','_parent')" alt="会议历史检索">会议历史检索</a>
 			</div>
 		</div>
-		
 		  <div id="content">
 			<div class="searchContainer" >
 			 <form method="post" action="HistoryServlet">
@@ -251,17 +250,17 @@
 					</tr>
 					<tr>
 						<td>   
-							 <label for="keyWordTxt">文件关键词：</label>
-							 <input type="text" name = "choosename" class="txt txt1" id="keyWordTxt" />   
+							 <label for="keyWordTxt">会议名称：</label>
+							 <input type="text" name = "confername" class="txt txt1" id="keyWordTxt" />   
 						</td>
 						<td>
-							<label for="uploaderTxt">上传者：</label>
-							<input type="text" name = "chooseuploader" class="txt txt2" id="uploaderTxt" />
+							<label for="uploaderTxt">会议主题：</label>
+							<input type="text" name = "confertheme" class="txt txt2" id="uploaderTxt" />
 						</td>
 					</tr>
 					<tr>
 						<td>
-							<label for="fromTxt">上传时间：&nbsp;从</label>
+							<label for="fromTxt">会议时间：&nbsp;从</label>
 							<input type="text" name = "start" class="txt txt3" id="fromTxt" placeholder="选择日期" onclick="WdatePicker({el:'fromTxt'})"/>
 							<label for="toTxt">&nbsp;到&nbsp;</label>
 							<input type="text" name = "end" class="txt txt4" id="toTxt" placeholder="选择日期" onclick="WdatePicker({el:'toTxt'})"/>
@@ -273,7 +272,7 @@
 					<tr>
 						<td>
 							<label for="roomChoose">会 议 室 :&nbsp;&nbsp; </label>
-							<select class="roomChoose txt txt5" name = "chooseroomnum" id="roomChoose">
+							<select class="roomChoose txt txt5" name = "roomnum" id="roomChoose">
 						            <option value ="">--------------请选择---------------------</option>
                  <%
                    MysqlAction mysqlAction2 = new MysqlAction();
@@ -295,11 +294,11 @@
 			<div class="tableTitle">
 				<table>
 				<tr>
-					<td>文件名称</td>
 					<td>会议名称</td>
-					<td>上传者</td>
-					<td>上传日期</td>
-					<td>下载</td>
+					<td>会议主题</td>
+					<td>会议日期</td>
+					<td>会议室</td>
+					<td>详情</td>
 				</tr>
 				</table>
 			</div>
