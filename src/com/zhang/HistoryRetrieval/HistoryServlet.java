@@ -92,6 +92,6 @@ public class HistoryServlet extends HttpServlet {
 		session.setAttribute("endSearch",end);
 		
 		rd.forward(request, response); 
-		return;  
+
 	}
 }

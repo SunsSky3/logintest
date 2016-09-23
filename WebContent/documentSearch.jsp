@@ -1,3 +1,4 @@
+<%@page import="com.zhang.mrbs.utils.sortClass"%>
 <%@page import="com.zhang.mrbs.dao.IFindFileByIdDao"%>
 <%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
 <%@page import="org.springframework.context.ApplicationContext"%>
@@ -9,6 +10,7 @@
 <%@page import="java.util.*"%>
 <%@page import="java.io.*"%>
 <%@page import="com.zhang.booking.*"%>
+<%@page import="com.zhang.booking.GetRoomInfoServlet"%>
 <%@page import="com.zhang.dao.MysqlAction"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -36,7 +38,6 @@
 		width:1000px;
 		margin: 10px auto;
 		background: url('img/bg1.jpg') no-repeat;
-	
 	}
 	#header{
 		height:134px;
@@ -163,21 +164,17 @@
         border:1px solid #006f86; 		
 	}
 	.tableTitle table td:nth-child(1){
-		width: 355px;
+		width: 249px;
 	}
 	.tableTitle table td:nth-child(2){
-		width: 165px;
+		width: 245px;
 	}
     .tableTitle table td:nth-child(3){
-    	width: 95px;
+    	width: 319px;
     }
     .tableTitle table td:nth-child(4){
-      width: 166px;
-    }
-     .tableTitle table td:nth-child(5){
       width: 75px;
     }
- 
 	/*         tableTilte end                  */
 
 	/*                文件表区                 */
@@ -188,7 +185,7 @@
 	}
 	.documentTableCont1{
 		height: 250px;
-		width: 945px;
+		width: 960px;
 		height: 97%;
 		margin:auto;
 		overflow: auto;
@@ -198,7 +195,14 @@
         width: 99%;
         border-collapse:collapse;
         border-width: 1px;
-        font-size: 22px;
+        font-size: 20px;
+    }
+    .timeShow{
+        margin: auto;
+        width: 99%;
+        border-collapse:collapse;
+        border-width: 1px;
+        font-size: 15px;
     }
     table.documentTable tr{
         border-width: 1px;
@@ -215,20 +219,18 @@
     	background: #fbf8e9;
     }   
     table.documentTable tbody td:nth-child(1){
-     width:360px;
+     width:250px;
      }  
     table.documentTable tbody td:nth-child(2){
-     width: 170px;
+     width: 245px;
     }
     table.documentTable tbody td:nth-child(3){
-     width: 100px;
+     width: 320px;
     }
     table.documentTable tbody td:nth-child(4){
-      width: 170px;
+      width: 75px;
     }
-    table.documentTable tbody td:nth-child(5){
-      width: 70px;
-    }
+
     #docuDownBtn{
     	width: 50px;
     	height: 20px;
@@ -242,7 +244,8 @@
     .btnDisabled{ 
    		border: 2px solid #aaa !important;                /*按钮禁用*/
    		background:#d8d8d8 !important ;
-  }  
+  }
+    
     /*                文件表区end                 */  
 </style>
 <body>
@@ -333,51 +336,59 @@
 			</div>
 			<div class="documentTableCont">
 				<div class="documentTableCont1">
-					<table class="documentTable">
+				
+				  <table class="documentTable">
 						<%
 							ArrayList list  = (ArrayList)request.getAttribute("list"); 
 							//System.out.println(list);
-							if (!list.equals("")&&!list.equals("null")){
-		                 	  for(int i = list.size()-1;i>=0;i--){						
-		   		              Booking booking = (Booking)list.get(i);
-		   		              
-/* 		   		              int bookingnum = booking.getBookingNum();
-		   		              MysqlAction mysqlAction = new MysqlAction();
-		   		              Booking booking =  mysqlAction.getBookingbyconferId(bookingnum);
-						      System.out.println(booking.getConferName());
+							 MysqlAction mysqlAction = new MysqlAction();
+							if (!list.equals("")&&!list.equals("null")){   
 							
-							
-								
 							/**  
-							* @Description: 从数据库中获取年月日小时的信息
+							* @Description: 按照时间的顺序对文件进行排序。
 							* @Author: 汪志文（作者）
-							* @Create Date: 2016-9-17（创建日期）
-							*/
-/* 							ApplicationContext ac = new ClassPathXmlApplicationContext("beans.xml");
-							IFindFileByIdDao findFileByIdDao = (IFindFileByIdDao) ac.getBean(IFindFileByIdDao.SERVICE_NAME);
-							File cFile = findFileByIdDao.findObjectByID(file.getId());
-							String fileUploadDate = new SimpleDateFormat("yyyy-MM-dd HH").format(cFile.getUploadtime()); */ 
-	             			
+							* @Create Date: 2016-9-23（创建日期）
+							*/         	  
+		                 	  sortClass c = new sortClass();
+		                 	  Collections.sort(list,c);	                 
+		                 	  for(int i = list.size()-1;i>=0;i--){						
+		   		                Booking booking = (Booking)list.get(i);
+		   		              	String [] timeStringArray =booking.getTime().split(",");
+		   		             	int[] timeIntArray= new int[timeStringArray.length];
+		   		               	for(int j=0;j<timeStringArray.length;j++){
+			   		              	 timeIntArray[j] = Integer.parseInt(timeStringArray[j]);
+		   		              	}  
+		   		              	Arrays.sort(timeIntArray);
 	                    %>  
+	                   <form action="GetRoomInfoServlet" method="post">
 						<tr>
 							<td><%= booking.getConferName()%></td>
 							<td><%= booking.getConferTheme()%></td>
-							<td><%= booking.getDate()%> </td>
+							<td><%= booking.getDate()%><br/>
+							<%
+							 for(int jj =0;jj<timeIntArray.length;jj++){
+		   		              	String timeString = mysqlAction.getTimeslotsById(timeIntArray[jj]);
+		   		 			%><span class="timeShow">&lt;<%=timeString%>&gt;</span><%}%>
+	
+							 </td>
 							<td><%= booking.getRoomNum() %></td>			
 							<td> 
-								<%--<A HREF="download.jsp?path=<%=URLEncoder.encode(getServletContext().getRealPath(file.getFilename()),"GBK")%>">	 --%>
-								<A HREF="download.jsp?path=<%=URLEncoder.encode("C:/conference/file/upload/","GBK")%>">	
-									<input type="button" id="docuDownBtn" value="下载" />
-								</A>
+								   <input type="submit"  value="详情"/>
+								   <input type="hidden"  name="conferId" value="<%=booking.getBookingNum()%>"/> 
 							</td>
 						</tr>
+						</form>
 					<% }%>
 				   <% }%>
 				</table>
-
+			
 				</div>
 			</div>
 		  </div>
+		  
+	 
+		  
+		  
 
 	<script>
 		//下载按钮 禁用
@@ -398,5 +409,7 @@
 		<div id="bottomDivider"></div>
 		<div id='bottom'>copyright blabla版权所有</div>
 	</div>
+	
+	
 </body>
 </html>

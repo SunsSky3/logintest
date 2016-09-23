@@ -22,7 +22,7 @@ public class MysqlAction {
 	
     public static String url = "jdbc:mysql://localhost:3306/openmeetings";
     public static String user = "root";
-    public static String password = "SunsSky";
+    public static String password = "106381";
 
 	public void databaseConnection() throws Exception{
 		// This will load the MySQL driver
@@ -742,6 +742,32 @@ public class MysqlAction {
 			String timeslotstring = new String();
 			while (resultSet.next()) {
 				timeslotstring = timeslotstring+resultSet.getString("ID")+",";
+			}
+			return timeslotstring;
+		} catch (Exception e) {
+			throw e;
+		}finally{
+			close();
+		}
+
+	}
+	
+	/**  
+	* @Name: getTimeslotsById
+	* @Description: 通过Id得到timeslot数据
+	* @Author: 汪志文（作者）
+	* @Version: V1.00 （版本号）
+	* @Create Date: 2016-9-23（创建日期）
+	* @Parameters: Integer：主键ID
+	* @Return: String:timeslot
+	*/
+	public String getTimeslotsById(int id) throws Exception{
+		try {
+			databaseConnection();
+			resultSet = statement.executeQuery("select timeslots.timeslot from openmeetings.timeslots where id = '"+ id+"'");
+			String timeslotstring = new String();
+			while (resultSet.next()) {
+				timeslotstring = resultSet.getString("timeslot");
 			}
 			return timeslotstring;
 		} catch (Exception e) {

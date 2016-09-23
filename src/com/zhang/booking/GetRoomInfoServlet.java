@@ -25,8 +25,7 @@ public class GetRoomInfoServlet extends HttpServlet {
 		int conferId =Integer.parseInt( request.getParameter("conferId"));
 		HttpSession session =  request.getSession();
 		session.setAttribute("conferId",conferId);
-		response.sendRedirect("documentInfo.jsp") ;
-		
+		response.sendRedirect("documentInfo.jsp");
 	}
 
 }
